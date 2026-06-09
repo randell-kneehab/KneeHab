@@ -159,6 +159,11 @@ h3 {
 .section-head { max-width: 60ch; margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
 .section-head .big-p { margin-top: 1.4rem; color: var(--muted); }
 .section-light .section-head .big-p { color: var(--muted-ink); }
+.section-action {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.25rem, 1.5rem + 2.5vw, 3.5rem);
+}
 
 /* ===== 5. HEADER ===== */
 #site-header {
@@ -737,11 +742,14 @@ h3 {
   .hero-split, .problem-grid, .why-grid, .coaching-grid, .story-grid {
     grid-template-columns: minmax(0, 1fr);
   }
-  /* Stack the split: copy, then video. Drop the connecting arrow. */
-  .hero-split { gap: clamp(2rem, 1.5rem + 3vw, 3rem); }
+  /* Stack the split and center the hero (text + video) on mobile. */
+  .hero-split { gap: clamp(2rem, 1.5rem + 3vw, 3rem); justify-items: center; }
   .hero-arrow { display: none; }
-  .hero-copy { max-width: 640px; }
+  .hero-copy { max-width: 640px; margin-inline: auto; text-align: center; }
+  #hero-title { margin-inline: auto; }
+  .hero-copy .lede { margin-inline: auto; }
   .hero-video { max-width: 720px; }
+  .hero-video-caption { justify-content: center; text-align: center; margin-inline: auto; }
   .story-video { max-width: 560px; }
   .why-grid .chain { max-width: 560px; }
   .method-grid { grid-template-columns: repeat(2, 1fr); }
