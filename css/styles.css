@@ -431,6 +431,9 @@ h3 {
   will-change: transform;
 }
 .btn-lg { padding: 1.15rem 2rem; font-size: 0.95rem; }
+.btn-arrow-icon { width: 1.15em; height: 1.15em; flex: none; transition: transform .2s var(--ease); }
+.btn-arrow:hover .btn-arrow-icon { transform: translateX(5px); }
+@media (prefers-reduced-motion: reduce) { .btn-arrow:hover .btn-arrow-icon { transform: none; } }
 .btn-volt { background: var(--volt); color: var(--ink); box-shadow: 0 0 0 rgba(215,255,46,0); }
 .btn-volt:hover { transform: translateY(-3px); box-shadow: 0 14px 36px -12px rgba(215,255,46,0.6); }
 .btn-ink { background: var(--ink); color: var(--bone); }
@@ -722,6 +725,10 @@ h3 {
 .page-hero-inner .lede { max-width: 52ch; color: var(--bone); }
 .page-hero-inner .btn-lg { margin-top: 0.6rem; }
 @media (min-width: 720px) { .page-hero-inner { max-width: 32ch; } }
+@media (max-width: 719px) {
+  .page-hero-inner { max-width: 100%; text-align: center; margin-inline: auto; }
+  .page-hero-inner .lede { margin-inline: auto; }
+}
 
 /* Reviews */
 .review-grid {
