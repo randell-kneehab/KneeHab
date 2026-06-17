@@ -852,6 +852,74 @@ h3 {
 .carousel-btn:hover { background: var(--volt); color: var(--ink); border-color: var(--volt); transform: translateY(-2px); }
 .carousel-btn:focus-visible { outline: 3px solid var(--volt); outline-offset: 3px; }
 
+/* Results carousel — category filter (homepage, light section) */
+.results-block {
+  margin-top: clamp(2.6rem, 1.6rem + 3vw, 4.2rem);
+  background: var(--ink); color: var(--bone);
+  border-radius: 18px;
+  padding: clamp(1.8rem, 1.2rem + 3vw, 3.4rem);
+}
+.results-block .results-filter-label { color: var(--muted); }
+.results-block .carousel-count { color: var(--muted); }
+.section-light .results-block .carousel-btn { border-color: var(--line); color: var(--bone); }
+.section-light .results-block .carousel-btn:hover { background: var(--volt); color: var(--ink); border-color: var(--volt); }
+.results-subhead { margin-bottom: 0.5rem; }
+.results-subtitle {
+  font-family: var(--font-display); text-transform: uppercase;
+  line-height: 1.04; letter-spacing: -0.01em;
+  font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.8rem);
+  margin: 0.5rem 0 0;
+}
+.results-filter {
+  display: flex; align-items: center; gap: 0.9rem;
+  margin: clamp(1.8rem, 1rem + 2vw, 2.6rem) 0 clamp(1.4rem, 1rem + 1vw, 2rem);
+}
+.results-filter-label {
+  font-family: var(--font-mono); text-transform: uppercase;
+  letter-spacing: 0.16em; font-size: 0.72rem; color: var(--muted-ink);
+}
+.results-select { position: relative; }
+.results-select::after {
+  content: ""; position: absolute; right: 1rem; top: 50%;
+  width: 9px; height: 9px; pointer-events: none;
+  border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink);
+  transform: translateY(-65%) rotate(45deg);
+}
+.results-select select {
+  appearance: none; -webkit-appearance: none;
+  font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--ink);
+  background: #fff; border: 1px solid var(--line-ink); border-radius: 10px;
+  padding: 0.7rem 2.6rem 0.7rem 1.1rem; cursor: pointer;
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.results-select select:hover { border-color: var(--ink); }
+.results-select select:focus-visible { outline: 3px solid var(--volt); outline-offset: 2px; }
+
+.carousel-panel[hidden] { display: none; }
+.carousel-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.2rem;
+}
+.carousel-count {
+  font-family: var(--font-mono); text-transform: uppercase;
+  letter-spacing: 0.14em; font-size: 0.78rem; color: var(--muted-ink);
+}
+
+/* Nav buttons sit on a light section here */
+.section-light .carousel-btn { border-color: var(--line-ink); color: var(--ink); }
+.section-light .carousel-btn:hover { background: var(--volt); color: var(--ink); border-color: var(--volt); }
+
+/* Placeholder cards until real videos are added */
+.vid-placeholder {
+  width: 100%; aspect-ratio: 9 / 16;
+  display: grid; place-items: center;
+  background: var(--ink-3); color: var(--muted);
+  font-family: var(--font-mono); font-size: 0.72rem;
+  text-transform: uppercase; letter-spacing: 0.1em; text-align: center;
+  border: 1px dashed var(--line); border-radius: 11px;
+}
+
 /* Product / merch cards */
 .product-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;

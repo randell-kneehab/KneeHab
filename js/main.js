@@ -36,8 +36,8 @@
   var carBtns = document.querySelectorAll('.carousel-btn');
   carBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      var section = btn.closest('section');
-      var track = section && section.querySelector('.carousel-track');
+      var scope = btn.closest('.carousel-panel') || btn.closest('section');
+      var track = scope && scope.querySelector('.carousel-track');
       if (!track) return;
       var card = track.querySelector('.vid-card');
       var step = card ? card.getBoundingClientRect().width + 18 : 280;
@@ -50,6 +50,23 @@
       vids.forEach(function (o) { if (o !== v) o.pause(); });
     });
   });
+
+  // --- Results carousel: dropdown switches the active category panel ---
+  var resultsFilter = document.getElementById('results-cat');
+  if (resultsFilter) {
+    var panels = document.querySelectorAll('.results-panels .carousel-panel');
+    var showCat = function (cat) {
+      panels.forEach(function (p) {
+        var match = p.getAttribute('data-cat') === cat;
+        p.hidden = !match;
+        if (!match) {
+          p.querySelectorAll('.vid-el').forEach(function (v) { v.pause(); });
+        }
+      });
+    };
+    resultsFilter.addEventListener('change', function () { showCat(resultsFilter.value); });
+    showCat(resultsFilter.value);
+  }
 
   // --- Sticky header state on scroll ---
   var header = document.getElementById('site-header');
