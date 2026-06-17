@@ -7,4 +7,6 @@ node_modules/
 .vscode/
 
 # Large local video previews — host on a CDN for production
-videos/
+videos/*
+# ...except the bands hero video, which ships with the repo
+!videos/bands-hero.mp4
