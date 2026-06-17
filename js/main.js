@@ -16,10 +16,10 @@
   }
 
   if (openBtn && nav) {
-    openBtn.addEventListener('click', function () {
-      nav.classList.add('is-open');
-      document.body.classList.add('nav-open-lock');
-      openBtn.setAttribute('aria-expanded', 'true');
+    openBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = nav.classList.toggle('is-open');
+      openBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
   }
   if (closeBtn) closeBtn.addEventListener('click', closeNav);
@@ -28,6 +28,12 @@
       if (e.target.tagName === 'A') closeNav();
     });
   }
+  // Tap outside the open dropdown to close it.
+  document.addEventListener('click', function (e) {
+    if (!nav || !nav.classList.contains('is-open')) return;
+    if (nav.contains(e.target) || (openBtn && openBtn.contains(e.target))) return;
+    closeNav();
+  });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeNav();
   });
