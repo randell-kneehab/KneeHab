@@ -181,39 +181,26 @@ h3 {
 }
 
 /* ===== 5. HEADER ===== */
+/* Full-width flat bar (no floating pill) */
 #site-header {
   position: sticky; top: 0; z-index: 100;
-  padding: 1rem var(--space) 0;
-  transition: padding .3s var(--ease);
-}
-#site-header.is-scrolled { padding-top: 0.5rem; }
-
-/* Floating rounded pill nav */
-.header-inner {
-  position: relative;
-  display: flex; align-items: center; gap: 1.25rem;
-  min-height: 60px;
-  padding-inline: 1.4rem;
-  border-radius: 100px;
-  border: 1px solid var(--line);
-  box-shadow: 0 24px 60px -34px rgba(0,0,0,0.85);
-}
-/* Blur lives on a pseudo-element, not on .header-inner itself. An element
-   with backdrop-filter becomes the containing block for position:fixed
-   descendants — which would trap the full-screen mobile nav panel inside
-   the header pill. Keeping it on ::before avoids that. */
-.header-inner::before {
-  content: ""; position: absolute; inset: 0; z-index: -1;
-  border-radius: inherit; pointer-events: none;
-  background: rgba(18,20,23,0.70);
+  padding-block: 0.55rem;
+  background: rgba(18,20,23,0.72);
   -webkit-backdrop-filter: saturate(150%) blur(18px);
   backdrop-filter: saturate(150%) blur(18px);
+  border-bottom: 1px solid var(--line);
   transition: background .3s var(--ease);
 }
-#site-header.is-scrolled .header-inner::before { background: rgba(18,20,23,0.92); }
+#site-header.is-scrolled { background: rgba(18,20,23,0.92); }
+.header-inner {
+  position: relative;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.75rem;
+  min-height: 56px;
+}
 
 .logo {
   display: inline-flex; align-items: center; gap: 0.55rem;
+  justify-self: center;
   font-family: var(--font-display);
   text-transform: uppercase;
   letter-spacing: -0.01em;
@@ -231,24 +218,48 @@ h3 {
 }
 .section-light .logo, #site-footer .logo { color: var(--bone); }
 
-#primary-nav { margin-inline: auto; }
-.nav-list {
-  display: flex; gap: 2rem; align-items: center;
-  list-style: none; margin: 0; padding: 0;
+/* Hamburger toggle — far left */
+.nav-open {
+  display: inline-flex; flex-direction: column; gap: 5px;
+  justify-self: start;
+  background: none; border: 0; cursor: pointer; padding: 8px;
 }
-.nav-list a {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  color: var(--bone);
-  opacity: 0.78;
-  transition: opacity .2s, color .2s;
-}
-.nav-list a:hover { opacity: 1; color: var(--volt); }
+.nav-open span { width: 26px; height: 2px; background: var(--bone); display: block; }
+.nav-close { display: none; background: none; border: 0; cursor: pointer; }
 
-.nav-open, .nav-close { display: none; background: none; border: 0; cursor: pointer; }
+/* Outline CTA — far right */
+.header-cta { justify-self: end; }
+
+/* Menu dropdown — anchored under the toggle (top-left) */
+#primary-nav {
+  position: absolute; top: calc(100% + 10px); left: 0; z-index: 200;
+  margin: 0; width: min(240px, calc(100vw - 2rem));
+  background: var(--ink-2);
+  border: 1px solid var(--line); border-radius: 14px;
+  box-shadow: 0 28px 60px -26px rgba(0,0,0,0.85);
+  padding: 0.45rem;
+  transform-origin: top left; transform: scale(0.96) translateY(-6px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .18s var(--ease), transform .18s var(--ease), visibility 0s linear .18s;
+}
+#primary-nav.is-open {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity .18s var(--ease), transform .18s var(--ease);
+}
+.nav-list {
+  display: flex; flex-direction: column; gap: 2px;
+  list-style: none; margin: 0; padding: 0; width: 100%; text-align: left;
+}
+.nav-list li { width: 100%; }
+.nav-list a {
+  display: block; width: 100%;
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: 1rem; letter-spacing: 0; line-height: 1.1;
+  color: var(--bone); text-decoration: none;
+  padding: 0.8rem 0.85rem; border-radius: 9px;
+  transition: color .2s, background .2s;
+}
+.nav-list a:hover, .nav-list a:active { color: #fff; background: var(--volt); }
 
 /* ===== 6. HERO ===== */
 #hero {
@@ -1405,42 +1416,13 @@ h3 {
   .footer-disclaimer { text-align: left; }
 }
 
-/* Mobile nav */
-@media (max-width: 760px) {
-  .header-cta { display: none; }
-  .nav-open { display: inline-flex; flex-direction: column; gap: 5px; padding: 8px; margin-left: auto; }
-  .nav-open span { width: 26px; height: 2px; background: var(--bone); display: block; }
-  .nav-close { display: none; }
-
-  /* Compact dropdown anchored to the top-right of the header pill */
-  #primary-nav {
-    position: absolute; top: calc(100% + 10px); right: 0; z-index: 200;
-    margin: 0; width: min(230px, calc(100vw - 2rem));
-    background: var(--ink-2);
-    border: 1px solid var(--line); border-radius: 14px;
-    box-shadow: 0 28px 60px -26px rgba(0,0,0,0.85);
-    padding: 0.45rem;
-    transform-origin: top right; transform: scale(0.96) translateY(-6px);
-    opacity: 0; visibility: hidden;
-    transition: opacity .18s var(--ease), transform .18s var(--ease), visibility 0s linear .18s;
-  }
-  #primary-nav.is-open {
-    opacity: 1; visibility: visible; transform: none;
-    transition: opacity .18s var(--ease), transform .18s var(--ease);
-  }
-  .nav-list {
-    flex-direction: column; gap: 2px; text-align: left;
-    width: 100%; max-width: none;
-  }
-  .nav-list li { width: 100%; border: 0; }
-  .nav-list a {
-    display: block; width: 100%;
-    font-family: var(--font-display); text-transform: uppercase;
-    font-size: 1rem; letter-spacing: 0; line-height: 1.1;
-    opacity: 1; color: var(--bone);
-    padding: 0.8rem 0.85rem; border-radius: 9px;
-  }
-  .nav-list a:hover, .nav-list a:active { color: #fff; background: var(--volt); opacity: 1; }
+/* Header compacts on phones so toggle + centered logo + CTA all fit */
+@media (max-width: 600px) {
+  .header-inner { gap: 0.4rem; padding-inline: 0.9rem; }
+  .nav-open { padding: 6px; }
+  .nav-open span { width: 22px; }
+  .logo-img { height: 24px; }
+  .header-cta { padding: 0.6rem 0.85rem; font-size: 0.62rem; letter-spacing: 0.03em; }
 }
 @keyframes navItemIn {
   from { opacity: 0; transform: translateY(14px); }
