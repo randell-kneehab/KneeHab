@@ -1007,6 +1007,11 @@ h3 {
   .page-hero-inner { max-width: 100%; text-align: center; margin-inline: auto; }
   .page-hero-inner .lede { margin-inline: auto; }
 }
+/* Desktop: center the merged page-hero (merch, testimonials, coaching). Bands' .page-hero-inner is nested in a grid (no .container on the same element) and is intentionally NOT matched, so it stays left-aligned. */
+@media (min-width: 720px) {
+  .container.page-hero-inner { text-align: center; }
+  .container.page-hero-inner .lede { margin-inline: auto; }
+}
 
 /* Reviews */
 .review-grid {
