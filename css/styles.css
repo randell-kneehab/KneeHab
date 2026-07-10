@@ -1379,7 +1379,7 @@ h3 {
 .footer-col { display: flex; flex-direction: column; gap: 0.7rem; }
 .footer-meta-label {
   font-family: var(--font-mono); text-transform: uppercase;
-  letter-spacing: 0.16em; font-size: 0.72rem; color: var(--volt);
+  letter-spacing: 0.16em; font-size: 0.72rem; color: #9d86ff;
   margin-bottom: 0.5rem;
 }
 .footer-col a, .footer-col span {
