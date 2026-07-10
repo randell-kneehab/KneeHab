@@ -103,7 +103,16 @@
     var track = gal.querySelector('.gallery-track');
     var slides = gal.querySelectorAll('.gallery-slide');
     var dots = gal.querySelectorAll('.gallery-dot');
+    var rail = gal.querySelector('.gallery-dots');
     if (!track || !slides.length) return;
+
+    // On phones the rail only shows 4 swatches, so keep the active one visible.
+    var cur = -1;
+    var revealDot = function (dot) {
+      if (!rail || !dot || rail.scrollWidth <= rail.clientWidth) return;
+      var left = dot.offsetLeft - (rail.clientWidth - dot.offsetWidth) / 2;
+      rail.scrollTo({ left: left, behavior: 'smooth' });
+    };
 
     var setActive = function (i) {
       dots.forEach(function (d, di) {
@@ -111,6 +120,7 @@
         d.classList.toggle('is-active', on);
         d.setAttribute('aria-selected', on ? 'true' : 'false');
       });
+      if (i !== cur) { cur = i; revealDot(dots[i]); }
     };
 
     // Click a swatch -> scroll to that color.

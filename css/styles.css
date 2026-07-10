@@ -1280,17 +1280,20 @@ h3 {
   background: rgba(15,15,15,0.78); color: #fff;
   font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.1em;
+  white-space: nowrap;            /* never wrap onto a second line over the product */
   padding: 0.32rem 0.55rem; border-radius: 100px;
   pointer-events: none; transition: opacity .3s var(--ease);
 }
 .gallery-hint::after { content: "\2194"; font-size: 0.8rem; line-height: 1; }
 .product-gallery.is-touched .gallery-hint { opacity: 0; }
 .gallery-dots {
+  --dot: 16px; --dot-gap: 0.45rem;
   position: absolute; left: 0; right: 0; bottom: 0.7rem; z-index: 3;
-  display: flex; justify-content: center; gap: 0.45rem;
+  display: flex; justify-content: center; gap: var(--dot-gap);
 }
 .gallery-dot {
-  width: 16px; height: 16px; padding: 0; border-radius: 50%;
+  flex: 0 0 auto;
+  width: var(--dot, 16px); height: var(--dot, 16px); padding: 0; border-radius: 50%;
   background: var(--sw, #999);
   border: 1.5px solid rgba(0,0,0,0.25);
   box-shadow: 0 0 0 2px rgba(255,255,255,0.9), 0 1px 3px rgba(0,0,0,0.3);
@@ -1455,9 +1458,31 @@ body.nav-open-lock { overflow: hidden; }
 
 @media (max-width: 540px) {
   .who-grid, .testimonial-grid, .coach-grid, .review-grid, .ba-grid { grid-template-columns: 1fr; }
-  /* Merch: one centered product per row on phones so each card + swipe gallery fits the viewport. */
+  /* Merch: two products per row on phones so each card + swipe gallery fits the viewport. */
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
   .product-card { max-width: none; width: 100%; margin-inline: 0; }
+  /* The card is only ~160px wide here, so shrink the hint enough to sit on one
+     line, centered along the top of the product image. */
+  .gallery-hint {
+    top: 0.45rem; left: 50%; right: auto; transform: translateX(-50%);
+    font-size: 0.5rem; letter-spacing: 0.06em;
+    gap: 0.25rem; padding: 0.28rem 0.5rem;
+  }
+  .gallery-hint::after { font-size: 0.7rem; }
+  /* Swatches: show at most 4 at a time; the rail scrolls to reveal the rest and
+     JS keeps the active one in view. Cards with <=4 colors just shrink to fit. */
+  .gallery-dots {
+    left: 50%; right: auto; transform: translateX(-50%);
+    justify-content: flex-start;
+    max-width: calc(4 * var(--dot) + 3 * var(--dot-gap) + 8px);
+    padding: 4px;                  /* room for the swatch focus ring */
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .gallery-dots::-webkit-scrollbar { display: none; }
+  .gallery-dot { scroll-snap-align: center; }
   /* Keep big display headings inside the viewport. */
   .display-2xl, #hero-title { font-size: clamp(2.1rem, 1.2rem + 4.6vw, 2.9rem); }
   .display-xl { font-size: clamp(1.9rem, 1.2rem + 3.6vw, 2.5rem); }
