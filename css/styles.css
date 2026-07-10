@@ -1205,10 +1205,7 @@ h3 {
 
 /* Product / merch cards */
 .product-grid {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;
-}
-@media (max-width: 1200px) {
-  .product-grid { grid-template-columns: repeat(3, 1fr); }
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
 }
 .product-card {
   position: relative;
