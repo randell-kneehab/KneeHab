@@ -11,6 +11,12 @@ import { join, dirname, relative } from 'node:path';
 const SRC = 'src';
 const PARTIALS = 'partials';
 
+// {{videos}} resolves to the public base URL where testimonial/hero videos are
+// hosted (Cloudflare R2). Videos are too large for the repo, so they live off-
+// site and pages reference them via this token. To switch to a custom domain
+// later (e.g. https://videos.kneehabacademy.com/), change this one line.
+const VIDEOS = 'https://pub-29ef2a33b97e41f5a1da0d1cce0ac512.r2.dev/';
+
 const partials = {};
 for (const file of readdirSync(PARTIALS)) {
   if (file.endsWith('.html')) {
@@ -59,6 +65,7 @@ for (const srcFile of sources) {
   });
   html = html.split('{{home}}').join(home);
   html = html.split('{{base}}').join(base);
+  html = html.split('{{videos}}').join(VIDEOS);
 
   mkdirSync(dirname(outPath) || '.', { recursive: true });
   writeFileSync(outPath, html);
