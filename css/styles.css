@@ -359,11 +359,13 @@ h3 {
   position: relative;
   aspect-ratio: 4 / 5;
 }
-.hero-video-frame {
-  position: absolute; left: 0; right: 0; top: 50%; z-index: 1;
-  height: auto;
-  aspect-ratio: 4 / 5;            /* portrait — plays at this size, cropping a little footage */
-  transform: translateY(-50%);
+/* The frame fills the stage, so it inherits whatever aspect ratio the stage has.
+   Selector is scoped past `.video-frame`, which would otherwise win on source
+   order and drop this back to `position: relative`. `margin: 0` clears the UA
+   default on <figure>. */
+.hero-video .hero-video-frame {
+  position: absolute; inset: 0; z-index: 1;
+  margin: 0;
   border-radius: 18px;
   border-color: rgba(123,92,255,0.18);
   box-shadow: 0 60px 150px -55px rgba(0,0,0,0.95);
@@ -372,10 +374,9 @@ h3 {
 .hero-video-stage:hover .hero-video-frame {
   box-shadow: 0 70px 170px -50px rgba(0,0,0,0.95), 0 0 130px -34px rgba(123,92,255,0.30);
 }
-/* Mobile / touch: the full 16:9 size. */
+/* Mobile / touch: the video's native 16:9 instead of the portrait crop. */
 @media (hover: none), (max-width: 760px) {
   .hero-video-stage { aspect-ratio: 16 / 9; }
-  .hero-video-frame { aspect-ratio: 16 / 9; }
 }
 
 /* Circular rotating stamp overlapping the top-right corner */
