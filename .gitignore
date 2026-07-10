@@ -10,3 +10,6 @@ node_modules/
 videos/*
 # ...except the bands hero video, which ships with the repo
 !videos/bands-hero.mp4
+
+# Wrangler local state (R2/KV/D1 caches) — never commit
+.wrangler/
