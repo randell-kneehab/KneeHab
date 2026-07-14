@@ -13,3 +13,7 @@ videos/*
 
 # Wrangler local state (R2/KV/D1 caches) — never commit
 .wrangler/
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
