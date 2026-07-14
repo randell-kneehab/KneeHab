@@ -7,10 +7,13 @@
     "build": "npm run build:css && npm run build:js && npm run build:html",
     "build:css": "csso css/styles.css -o css/styles.min.css",
     "build:js": "terser js/main.js --compress --mangle -o js/main.min.js",
-    "build:html": "node scripts/build-html.mjs"
+    "build:html": "node scripts/build-html.mjs",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
   },
   "devDependencies": {
     "csso-cli": "^4.0.2",
-    "terser": "^5.36.0"
+    "terser": "^5.36.0",
+    "wrangler": "^4.110.0"
   }
 }
